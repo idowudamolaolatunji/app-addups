@@ -22,13 +22,15 @@ export type ImageType = {
 }
 
 export type ListingType = {
+    _id?: string;
     displayName: string;
     link: string;
-    location: LocationType,
+    location: LocationType;
     description: string;
-    displayImage: ImageType,
+    displayImage: ImageType;
     targetGender: string;
-    displayDurationInHours: number,
+    displayDurationInHours: number;
+    extraDisplayDurationInHours?: number;
     lister: {
         gender: string;
         country: string;

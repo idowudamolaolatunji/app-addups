@@ -54,9 +54,8 @@ const customStyles: any = {
 
 const columns: any = [
 	{
-		name: "Reference ID",
+		name: "Transaction ID",
 		selector: (row: { reference: string, transactionId?: string }) => <span className="number">{row?.transactionId || row?.reference}</span>,
-		width: "16.5rem"
 	},
 	{
 		name: "Amount",
@@ -156,7 +155,7 @@ export default function PointPage() {
 									name="price"
 									className="form--input"
 									placeholder="Enter Points"
-									suffix=" Point"
+									suffix=" points"
 									decimalsLimit={0}
 									value={pointsAmount}
 									onValueChange={(value: any) => setPointsAmount(value)}

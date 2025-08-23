@@ -1,6 +1,8 @@
  
 import { createContext, useState, useEffect, useContext } from "react";
 import { useAuthContext } from "./AuthContext";
+import { useDataContext } from "./DataContext";
+import type { ListingType } from "../utils/types";
 
 const BASE_API_URL = import.meta.env.VITE_API_URL;
 
@@ -9,12 +11,11 @@ const BASE_API_URL = import.meta.env.VITE_API_URL;
 //////////////////////////////////////////////
 
 interface FetchedContextType {
-    myListings: null | [] | any;
+    listings: ListingType[] | [];
+    myListings: ListingType[] | [];
     transactions: [] | any;
-    setMyListings: (l: [] | any) => void;
+    setMyListings: (l: ListingType[] | []) => void;
     setTransactions: (t: [] | any) => void;
-	handleFetchMyListings: () => void;
-	handleFetchTransactions: () => void;
 }
 
 const FetchedContext = createContext<FetchedContextType | any>(null);
@@ -28,13 +29,42 @@ interface FetchedProviderProps {
 	children: React.ReactNode;
 }
 
+let counter = 0
 
 export const FetchedProvider: React.FC<FetchedProviderProps> = ({ children }) => {
     const { token, headers, handleUser } = useAuthContext();
+    const { region, gender, pageNum } = useDataContext();
 
     const [_, setError] = useState("");
-    const [myListings, setMyListings] = useState(null);
+    const [myListings, setMyListings] = useState<ListingType[] | []>([]);
     const [transactions, setTransactions] = useState([]);
+    const [listings, setListings] = useState<ListingType[] | []>([]);
+
+	console.log("Re-render", counter += 1)
+
+    useEffect(function() {
+        handleFetchListings();
+    }, [pageNum, region, gender]);
+
+    async function handleFetchListings() {
+        try {
+            const query = new URLSearchParams({
+                page: pageNum.toString(),
+				...(region && { region }),
+				...(gender && { gender }),
+            }).toString();
+
+            const res = await fetch(`${BASE_API_URL}/listings/all?${query}`, {
+                method: "GET", headers,
+            });
+            const data = await res.json();
+            // console.log(data);
+            setListings(data?.data?.listings)
+
+        } catch(err: any) {
+            console.log(err?.message as string);
+        }
+    }
 
     
     async function handleFetchMe() {
@@ -81,11 +111,13 @@ export const FetchedProvider: React.FC<FetchedProviderProps> = ({ children }) =>
 
     // CREATE CONTEXT DATA
     let contextData = {
+        listings,
         myListings,
         transactions,
         setMyListings,
         setTransactions,
-        handleFetchMyListings
+        handleFetchMyListings,
+        handleFetchTransactions
     }
 
 

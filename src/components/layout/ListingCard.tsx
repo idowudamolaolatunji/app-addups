@@ -28,20 +28,16 @@ export default function ListingCard({ data }: { data: ListingType }) {
 	async function handleRewardPoint() {
 		handleUser({ ...user, pointBalance: user?.pointBalance + 20 });
 
-		try {
-            const res = await fetch(`${BASE_API_URL}/points/recieve`, {
-                method: 'PATCH', headers,
-                body: JSON.stringify({ amount: 20 }),
-            });
+		const res = await fetch(`${BASE_API_URL}/points/recieve`, {
+			method: 'PATCH', headers,
+			body: JSON.stringify({ amount: 20 }),
+		});
 
-            const data = await res.json();
+		const data = await res.json();
 
-			setShowModal(false);
-			handleUser(data?.data?.user)
-			setTransactions(data?.data?.transactions)
-        } catch(err: any) {
-            console.log(err)
-        }
+		setShowModal(false);
+		handleUser(data?.data?.user)
+		setTransactions(data?.data?.transactions)
 	}
 
 	return (
@@ -60,7 +56,7 @@ export default function ListingCard({ data }: { data: ListingType }) {
 				)
 			}
 
-			<figure className="listing--card" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), 65%, rgba(0, 0, 0, .7)), url(${data?.displayImage?.url})` }}>
+			<figure className="listing--card" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), 55%, rgba(0, 0, 0, .7)), url(${data?.displayImage?.url})` }}>
 				<div className="card--details">
 					<h4 className="title">{truncateString(data?.displayName)}</h4>
 					<p className="description">

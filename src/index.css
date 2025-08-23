@@ -134,11 +134,11 @@ button {
 	background: #aaa;
 }
 
-body:has(.modal),
-body:has(.spinner_container) {
+/* body:has(.modal),
+body:has(.global--overlay) {
 	height: 100vh;
-	overflow-y: hidden !important;
-}
+	overflow: hidden !important;
+} */
 
 .number {
     font-family: "Montserrat", sans-serif;
@@ -558,6 +558,7 @@ button.form--submit:disabled {
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
+    margin: 0 -0.48rem;
 
     position: sticky;
     top: 0;
@@ -734,6 +735,15 @@ button.form--submit:disabled {
 /* HOME HERO STYLES */
 /* ============================================== */
 
+.discover--container .page--tabs {
+    position: sticky;
+    top: 8rem;
+    max-width: 100rem;
+    margin: 0 -0.48rem;
+    padding: 0.2rem 0 0.68rem;
+    background-color: #fff;
+}
+
 .page--tabs {
 	display: flex;
 	align-items: center;
@@ -859,12 +869,18 @@ select.page--tab:focus {
 
 
 
-.listing--grid,
-.promote--container .listing--grid {
+.listing--grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.6rem;
 }
+
+.owned-listing--grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+}
+
 .discover--container {
     display: flex;
     flex-direction: column;
@@ -883,9 +899,7 @@ select.page--tab:focus {
     justify-content: flex-end;
     color: #fff;
 }
-.promote--container .listing--card {
-    min-height: auto;
-}
+
 
 
 .owned-listing--card {
@@ -1281,11 +1295,23 @@ select.page--tab:focus {
         grid-template-columns: 1fr;
         gap: 1.4rem;
     }
+    .owned-listing--grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 
     .listing--card {
         min-height: 32.5rem;
     }
 }
+
+
+@media screen and (max-width: 400px) {
+    .owned-listing--grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
 
 
 @media screen and (max-width: 375px) {

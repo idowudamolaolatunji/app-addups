@@ -9,6 +9,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useDataContext } from "../../context/DataContext";
 import { Fade } from "react-awesome-reveal";
+import type { ListingType } from "../../utils/types";
 
 
 export default function ListingPage() {
@@ -35,9 +36,9 @@ export default function ListingPage() {
 				<div className="">
 					{activeTab == "active" && activeListings?.length > 0 && (
 						<div className="promote--container">
-							<div className="listing--grid">
-								{activeListings?.map((data: any, i: number) => (
-									<OwnedListingCard data={data} key={i} />
+							<div className="owned-listing--grid">
+								{activeListings?.map((data: ListingType, i: number) => (
+									<OwnedListingCard listing={data} key={i} />
 								))}
 							</div>
 
@@ -49,9 +50,9 @@ export default function ListingPage() {
 
 					{activeTab == "inactive" && inActiveListings?.length > 0 && (
 						<div className="promote--container">
-							<div className="listing--grid">
-								{inActiveListings?.map((data: any, i: number) => (
-									<OwnedListingCard data={data} key={i} />
+							<div className="owned-listing--grid">
+								{inActiveListings?.map((data: ListingType, i: number) => (
+									<OwnedListingCard listing={data} key={i} />
 								))}
 							</div>
 						</div>

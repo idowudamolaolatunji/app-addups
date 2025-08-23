@@ -6,42 +6,17 @@ import ListingCard from "../layout/ListingCard"
 import { ghRegions, ngStates } from "../../utils/data";
 import { useAuthContext } from "../../context/AuthContext";
 import type { ListingType } from "../../utils/types";
+import { useDataContext } from "../../context/DataContext";
+import { useFetchedContext } from "../../context/FetchedContext";
+import { useWindowScroll } from "react-use";
+import { HiOutlineSpeakerphone } from "react-icons/hi";
 
-
-// const listings = [
-// 	{
-// 		displayImage: { url: "https://res.cloudinary.com/du8iw1efa/image/upload/v1752871520/products/product-1752871514305-1.jpg" },
-// 		displayName: "Kehinde",
-// 		location: "Lagos",
-// 		gender: "All Gender",
-// 		link: "https://wa.me/2349057643470",
-// 	},
-// 	{
-// 		displayImage: { url: "https://res.cloudinary.com/du8iw1efa/image/upload/v1753089521/products/product-1753089512085-1.jpg" },
-// 		displayName: "Martha",
-// 		description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt ipsa illo aut iure maiores deleniti ut expedita! Modi, excepturi eius?",
-// 		location: "Lagos",
-// 		link: "https://wa.me/2349057643470",
-// 	},
-// 	{
-// 		displayImage: { url: "https://res.cloudinary.com/du8iw1efa/image/upload/v1741746468/collections/collection-1741746467353.jpg" },
-// 		displayName: "James",
-// 		location: "Kwara",
-// 		link: "https://wa.me/2349057643470",
-// 	},
-// ];
-
-const BASE_API_URL = import.meta.env.VITE_API_URL;
 
 export default function ExplorePage() {
-	const { user, headers } = useAuthContext();
-
-	const [listings, setListings] = useState<ListingType[] | []>([]);
-	const [region, setRegion] = useState("");
-	const [gender, setGender] = useState("");
-	const [_, setLoading] = useState(false);
-	// const [hasMore, setHasMore] = useState(false);
-	const [pageNum] = useState(1);
+    const { y } = useWindowScroll();
+	const { user } = useAuthContext();
+	const { listings } = useFetchedContext();
+	const { region, gender, setRegion, setGender, handleTabShown } = useDataContext();
 
 	// SCROLL STATE, TO MEMORIZE WHERE WE ARE ON THE SCREEN
 	const [scrollY, setScrollY] = useState(() => {
@@ -76,32 +51,6 @@ export default function ExplorePage() {
 		return () => window.removeEventListener("beforeunload", handleBeforeUnload);
 	}, []);
 
-	useEffect(function() {
-		setLoading(true);
-		handleFetchListings();
-	}, [pageNum, region, gender]);
-
-	async function handleFetchListings() {
-		try {
-			setLoading(true);
-
-			const query = new URLSearchParams({
-				page: pageNum.toString(),
-			}).toString();
-
-			const res = await fetch(`${BASE_API_URL}/listings/all?${query}`, {
-				method: "GET", headers,
-			});
-			const data = await res.json();
-			console.log(data);
-			setListings(data?.data?.listings)
-
-		} catch(err: any) {
-			console.log(err?.message as string);
-		} finally {
-			setLoading(false);
-		}
-	}
 
     return (
         <Fade className="section" duration={500}>
@@ -135,6 +84,10 @@ export default function ExplorePage() {
 							<option hidden>Platform</option>
 							<option value="all-platform">All Platform</option>
 						</select> */}
+
+						{(y >= 180) && (
+							<button className="promote--btn" onClick={() => handleTabShown("add-listing")}><HiOutlineSpeakerphone /></button>
+						)}
 					</div>
 
                     <div className="listing--grid">
