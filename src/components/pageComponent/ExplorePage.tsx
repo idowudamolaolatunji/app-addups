@@ -1,5 +1,5 @@
  
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import ListTopBox from "../layout/ListTopBox"
 import ListingCard from "../layout/ListingCard"
@@ -15,16 +15,33 @@ import { HiOutlineSpeakerphone } from "react-icons/hi";
 export default function ExplorePage() {
     const { y } = useWindowScroll();
 	const { user } = useAuthContext();
-	const { listings } = useFetchedContext();
-	const { region, gender, setRegion, setGender, handleTabShown } = useDataContext();
+	const { handleTabShown } = useDataContext();
+	const { listings, listingLoading, region, gender, setRegion, setGender, hasMore, setPageNum
+	} = useFetchedContext();
 
 	// SCROLL STATE, TO MEMORIZE WHERE WE ARE ON THE SCREEN
+	// (HAS NOTHING TO DO WITH THE INFINIT SCROLL IMP)
 	const [scrollY, setScrollY] = useState(() => {
 		const saved = localStorage.getItem('scrollPosition');
 		return saved !== null ? parseInt(saved, 10) : 0;
 	});
 
-	// SET THE SCROLL POSTION 
+	// INFINIT SCROLL INPLMENTATION
+	const observer = useRef(null) as any;
+	const secondToLastListingRef = useCallback((node: HTMLElement | null) => {
+		if(listingLoading) return;
+		if(observer.current) observer.current.disconnect();
+		observer.current = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
+			if(entries[0].isIntersecting && hasMore) {
+				setPageNum((prevNum: number) => prevNum + 1);
+			}
+		});
+
+		if(node) observer.current.observe(node);
+	}, [listingLoading, hasMore]);
+
+
+	// SET THE SCROLL POSTION (HAS NOTHING TO DO WITH THE INFINIT SCROLL IMP)
 	useEffect(function() {
 		const handleScroll = function() {
 			setScrollY(window.scrollY);
@@ -59,7 +76,10 @@ export default function ExplorePage() {
 
                 <div className="page--container discover--container">
 					<div className="page--tabs">
-						<select name="region" id="region" className="page--tab" value={region} onChange={(e => setRegion(e?.target?.value))}>
+						<select name="region" id="region" className="page--tab" value={region} onChange={(e => {
+							setRegion(e?.target?.value);
+							setPageNum(1);
+						})}>
 							<option hidden>{user?.country == "nigeria" ? "State" : "Region"}</option>
 							<option value="all-region">All {user?.country == "nigeria" ? "State" : "Region"}</option>
 							{user.country == "nigeria" && (
@@ -74,7 +94,10 @@ export default function ExplorePage() {
 								))
 							)}
 						</select>
-						<select name="gender" id="gender" className="page--tab" value={gender} onChange={(e => setGender(e?.target?.value))}>
+						<select name="gender" id="gender" className="page--tab" value={gender} onChange={(e => {
+							setGender(e?.target?.value);
+							setPageNum(1);
+						})}>
 							<option hidden>Gender</option>
 							<option value="all-gender">All Genders</option>
 							<option value="male">Male</option>
@@ -87,9 +110,17 @@ export default function ExplorePage() {
 					</div>
 
                     <div className="listing--grid">
-                        {listings?.map((data: ListingType, i: number) => (
-                            <ListingCard data={data} key={i} />
-                        ))}
+                        {listings?.map((data: ListingType, i: number) => {
+							if(listings?.length === i) {
+								return (
+									<span key={i} ref={secondToLastListingRef}>
+										<ListingCard data={data} />
+									</span>
+								)
+							} else {
+								return <ListingCard data={data} key={i} />
+							}
+						})}
                     </div>
                 </div>
             </div>

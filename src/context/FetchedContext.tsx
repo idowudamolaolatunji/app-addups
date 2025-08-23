@@ -1,7 +1,6 @@
  
 import { createContext, useState, useEffect, useContext } from "react";
 import { useAuthContext } from "./AuthContext";
-import { useDataContext } from "./DataContext";
 import type { ListingType } from "../utils/types";
 
 const BASE_API_URL = import.meta.env.VITE_API_URL;
@@ -11,11 +10,23 @@ const BASE_API_URL = import.meta.env.VITE_API_URL;
 //////////////////////////////////////////////
 
 interface FetchedContextType {
+    handleFetchListings: () => void;
+    ///////////////////////////////////////
     listings: ListingType[] | [];
+    listingLoading: boolean;
     myListings: ListingType[] | [];
     transactions: [] | any;
     setMyListings: (l: ListingType[] | []) => void;
     setTransactions: (t: [] | any) => void;
+    ////////////////////////////////////////
+    region: string;
+	gender: string;
+	hasMore: boolean;
+	pageNum: number;
+	setRegion: (r: string) => void;
+	setGender: (g: string) => void;
+	setHasMore: (hm: boolean) => void;
+	setPageNum: (pn: number) => void;
 }
 
 const FetchedContext = createContext<FetchedContextType | any>(null);
@@ -31,18 +42,26 @@ interface FetchedProviderProps {
 
 export const FetchedProvider: React.FC<FetchedProviderProps> = ({ children }) => {
     const { token, headers, handleUser } = useAuthContext();
-    const { region, gender, pageNum } = useDataContext();
 
     const [_, setError] = useState("");
     const [myListings, setMyListings] = useState<ListingType[] | []>([]);
     const [transactions, setTransactions] = useState([]);
-    const [listings, setListings] = useState<ListingType[] | []>([]);
 
-    useEffect(function() {
-        handleFetchListings();
-    }, [pageNum, region, gender]);
+    /////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////
+    const [listings, setListings] = useState<ListingType[] | []>([]);
+    const [listingLoading, setListingLoading] = useState(false);
+    ////////////////////////////////////////////////////////////////
+    const [region, setRegion] = useState("all-region");
+	const [gender, setGender] = useState("all-gender");
+	const [hasMore, setHasMore] = useState(false);
+	const [pageNum, setPageNum] = useState(1);
+    ////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////
 
     async function handleFetchListings() {
+        setListingLoading(true);
+
         try {
             const query = new URLSearchParams({
                 page: pageNum.toString(),
@@ -53,14 +72,17 @@ export const FetchedProvider: React.FC<FetchedProviderProps> = ({ children }) =>
             const res = await fetch(`${BASE_API_URL}/listings/all?${query}`, {
                 method: "GET", headers,
             });
+           
             const data = await res.json();
-            setListings(data?.data?.listings)
+            setListings(prev => [...prev, ...data?.data?.listings])
+            setHasMore(data?.data?.pagination?.page < data?.data?.pagination?.pages)
 
         } catch(err: any) {
             console.log(err?.message as string);
+        } finally {
+            setListingLoading(false);
         }
     }
-
     
     async function handleFetchMe() {
         const res = await fetch(`${BASE_API_URL}/auth/me`, { method: "GET", headers })
@@ -94,12 +116,19 @@ export const FetchedProvider: React.FC<FetchedProviderProps> = ({ children }) =>
         }
     }
 
-
-    useEffect(function () {
+    // CLEAR THE STATE, IF GENDER OR REGION CHANGES
+    useEffect(function() {
         setListings([]);
-        
+    }, [region, gender]);
+    
+    // CALL THE FETCH FUNCTION
+    useEffect(function() {
+        handleFetchListings();
+    }, [pageNum, region, gender]);
+
+    // START FETCHING OTHER DATA
+    useEffect(function () {
         if(token && token != "null") {
-            handleFetchListings();
             handleFetchMe();
             handleFetchMyListings();
             handleFetchTransactions();
@@ -109,13 +138,27 @@ export const FetchedProvider: React.FC<FetchedProviderProps> = ({ children }) =>
 
     // CREATE CONTEXT DATA
     let contextData = {
+        handleFetchListings,
+        ///////////////////////
+        ///////////////////////
         listings,
+        listingLoading,
         myListings,
         transactions,
         setMyListings,
         setTransactions,
         handleFetchMyListings,
-        handleFetchTransactions
+        handleFetchTransactions,
+        ////////////////////////
+        ////////////////////////
+		region,
+		gender,
+		hasMore,
+		pageNum,
+		setRegion,
+		setGender,
+		setHasMore,
+		setPageNum,
     }
 
 

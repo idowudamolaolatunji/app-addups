@@ -14,11 +14,11 @@ createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<GoogleOAuthProvider clientId={clientId}>
 			<AuthProvider>
-				<DataProvider>
-					<FetchedProvider>
+				<FetchedProvider>
+					<DataProvider>
 						<App />
-					</FetchedProvider>
-				</DataProvider>
+					</DataProvider>
+				</FetchedProvider>
 			</AuthProvider>
 		</GoogleOAuthProvider>
 	</StrictMode>,
