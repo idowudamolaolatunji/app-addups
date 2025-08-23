@@ -20,6 +20,11 @@
         {
             "src": "/vector.png",
             "type": "image/png"
+        },
+        {
+            "src": "/src/assets/logo/whatsapp-48.png",
+            "type": "image/png",
+            "sizes": "48x48"
         }
     ],
     "start_url": ".",

@@ -462,6 +462,7 @@ body:has(.global--overlay) {
 .form--flex a:visited,
 .form--info a:link,
 .form--info a:visited,
+.form--info span,
 .form--info button {
     color: var(--color-brand-500);
     font-weight: 600;
@@ -470,6 +471,7 @@ body:has(.global--overlay) {
 .form--info button {
     background-color: transparent;
 }
+.form--info span:hover,
 .form--info button:hover,
 .form--flex a:hover,
 .form--info a:hover {
@@ -960,10 +962,10 @@ select.page--tab:focus {
 }
 
 .card--details .description {
-    font-size: 1.4rem;
+    font-size: 1.34rem;
     line-height: 1.3;
     color: #eee;
-    margin-bottom: 0.68rem;
+    margin-bottom: 0.8rem;
 }
 
 .card--details .infos,
@@ -972,8 +974,8 @@ select.page--tab:focus {
     align-items: center;
 }
 .card--details .infos {
-    gap: 1.6rem;
-    margin-bottom: 1rem;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
 }
 .card--details .info {
     gap: 0.34rem;
@@ -985,6 +987,7 @@ select.page--tab:focus {
 }
 .card--details .info p {
     font-size: 1.2rem;
+    text-transform: capitalize;
 }
 
 .card--details .actions {
@@ -1300,7 +1303,7 @@ select.page--tab:focus {
     }
 
     .listing--card {
-        min-height: 32.5rem;
+        min-height: 34rem;
     }
 }
 
@@ -1309,17 +1312,16 @@ select.page--tab:focus {
     .owned-listing--grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
 }
 
 
 
-@media screen and (max-width: 375px) {
+/* @media screen and (max-width: 375px) {
     .page--tabs {
 	    max-width: max-content;
         justify-content: unset;
     }
-}
+} */
 @media screen and (max-width: 350px) {
     .card--details .card--btn {
         font-size: 1.3rem;

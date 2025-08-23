@@ -102,7 +102,7 @@ export default function index() {
 				</Link>
 
 				<h1 className="form--heading">Register</h1>
-				<p className="form--info">Hey Bestie! 🚀 Ready to sign up and connect with more friends? 🌈 Hit that signup button and get started!</p>
+				<p className="form--info">Hey Bestie! 🚀 Ready to sign up and connect with more friends? 🌈 Fill up your details and get started!</p>
 
 				<form className="auth--form" onSubmit={handleSubmit}>
 					<div className="form--item">
@@ -151,8 +151,7 @@ export default function index() {
 							)}
 						</select>
 					</div>
-					<PasswordInput title="Password" name="password" value={formData.password} handleChange={handleChangeData} autoComplete={true} />
-					{/* <PasswordInput title="Confirm Password" name="passwordConfirm" value={formData.passwordConfirm} handleChange={handleChangeData} autoComplete={true} /> */}
+					<PasswordInput title="Password" name="password" value={formData.password} handleChange={handleChangeData} />
 
 					<FormButton title="Submit" loading={loading} />
 

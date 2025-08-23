@@ -42,13 +42,13 @@ export default function ExplorePage() {
 
 	// IF APP IS RELOADED, REMOVE THE POSTION
 	useEffect(function () {
-		const handleBeforeUnload = function() {
+		const handleReload = function() {
 			setScrollY(0);
 			window.scrollTo(0, 0);
 			localStorage.setItem("scrollPosition", "0")
 		};
-		window.addEventListener("beforeunload", handleBeforeUnload);
-		return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+		window.addEventListener("load", handleReload);
+		return () => window.removeEventListener("load", handleReload);
 	}, []);
 
 
@@ -80,10 +80,6 @@ export default function ExplorePage() {
 							<option value="male">Male</option>
 							<option value="female">Female</option>
 						</select>
-						{/* <select name="platform" id="platform" className="page--tab">
-							<option hidden>Platform</option>
-							<option value="all-platform">All Platform</option>
-						</select> */}
 
 						{(y >= 180) && (
 							<button className="promote--btn" onClick={() => handleTabShown("add-listing")}><HiOutlineSpeakerphone /></button>

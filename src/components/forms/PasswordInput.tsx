@@ -9,10 +9,9 @@ interface InputProps {
     value: string;
     title: string;
     name: string;
-	autoComplete?: boolean;
 }
 
-function PasswordInput({ handleChange, value, title, name, autoComplete } : InputProps ) {
+function PasswordInput({ handleChange, value, title, name } : InputProps ) {
 	const [showPassword, setShowPassword] = useState(false);
 
 	return (
@@ -21,7 +20,7 @@ function PasswordInput({ handleChange, value, title, name, autoComplete } : Inpu
 				{title} <Asterisk />
 			</label>
 			<div className="form--input-box">
-				<input type={showPassword ? "text" : "password"} name={name} id={name} className="form--input" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" value={value} onChange={(e) => handleChange(e)} autoComplete={autoComplete ? "new-password" : ""} />
+				<input type={showPassword ? "text" : "password"} name={name} id={name} className="form--input" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" value={value} onChange={(e) => handleChange(e)} />
 				<div className="form--input-icon" onClick={() => setShowPassword(!showPassword)}>
 					{showPassword ? <ImEye /> : <ImEyeBlocked />}
 				</div>

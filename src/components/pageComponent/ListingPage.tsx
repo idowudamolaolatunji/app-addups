@@ -6,7 +6,7 @@ import { CiBullhorn } from "react-icons/ci";
 import { useFetchedContext } from "../../context/FetchedContext";
 import OwnedListingCard from "../layout/OwnedListingCard";
 import { AiOutlinePlus } from "react-icons/ai";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useDataContext } from "../../context/DataContext";
 import { Fade } from "react-awesome-reveal";
 import type { ListingType } from "../../utils/types";
@@ -27,7 +27,7 @@ export default function ListingPage() {
 
 	return (
 		<Fade className="section" duration={500}>
-			<div>
+			<div style={{ paddingBottom: "8rem" }}>
 				<div className="page--tabs" style={{ justifyContent: "center", maxWidth: "100%" }}>
 					<Tab title="Active listings" onClick={() => setActiveTab("active")} active={activeTab == "active"} />
 					<Tab title="Inactive listings" onClick={() => setActiveTab("inactive")} active={activeTab == "inactive"} />
@@ -73,7 +73,8 @@ export default function ListingPage() {
 							</button>
 
 							<div className="form--info">
-								<Link target="_blank" to="https://youtu.be/TPACABQTHvM?si=Sp0zOmmp6cs6aT1S">Click here to see how to promote your product</Link>
+								{/* <Link target="_blank" to="https://youtu.be/TPACABQTHvM?si=Sp0zOmmp6cs6aT1S">Click here to see how to promote your product</Link> */}
+								<span>Click here to see how to promote your product</span>
 							</div>
 						</div>
 					)}

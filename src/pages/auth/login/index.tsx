@@ -92,7 +92,7 @@ export default function index() {
 					<PhoneNumberInput setData={setFormData} data={formData} value={formData.phone} />
 					<PasswordInput title="Password" name="password" value={formData.password} handleChange={handleChangeData} />
 					<div className="form--info" style={{ margin: "-0.6rem 0 -0.6rem auto", fontSize: "1.2rem" }}>
-                    	<Link to='/forgot'>Forgot Password</Link>
+                    	{/* <Link to='/forgot'>Forgot Password</Link> */}
 					</div>
 
                     <FormButton title="Login" loading={loading} />

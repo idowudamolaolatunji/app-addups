@@ -29,8 +29,6 @@ interface FetchedProviderProps {
 	children: React.ReactNode;
 }
 
-let counter = 0
-
 export const FetchedProvider: React.FC<FetchedProviderProps> = ({ children }) => {
     const { token, headers, handleUser } = useAuthContext();
     const { region, gender, pageNum } = useDataContext();
@@ -40,8 +38,6 @@ export const FetchedProvider: React.FC<FetchedProviderProps> = ({ children }) =>
     const [transactions, setTransactions] = useState([]);
     const [listings, setListings] = useState<ListingType[] | []>([]);
 
-	console.log("Re-render", counter += 1)
-
     useEffect(function() {
         handleFetchListings();
     }, [pageNum, region, gender]);
@@ -50,15 +46,14 @@ export const FetchedProvider: React.FC<FetchedProviderProps> = ({ children }) =>
         try {
             const query = new URLSearchParams({
                 page: pageNum.toString(),
-				...(region && { region }),
-				...(gender && { gender }),
+				...(region != "all-region" && { region }),
+				...(gender != "all-gender" && { gender }),
             }).toString();
 
             const res = await fetch(`${BASE_API_URL}/listings/all?${query}`, {
                 method: "GET", headers,
             });
             const data = await res.json();
-            // console.log(data);
             setListings(data?.data?.listings)
 
         } catch(err: any) {
@@ -101,7 +96,10 @@ export const FetchedProvider: React.FC<FetchedProviderProps> = ({ children }) =>
 
 
     useEffect(function () {
+        setListings([]);
+        
         if(token && token != "null") {
+            handleFetchListings();
             handleFetchMe();
             handleFetchMyListings();
             handleFetchTransactions();
