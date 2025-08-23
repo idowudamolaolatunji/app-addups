@@ -1,0 +1,83 @@
+ 
+import { useEffect, useState } from "react";
+import Tab from "../layout/Tab";
+import { BsSend } from "react-icons/bs";
+import { CiBullhorn } from "react-icons/ci";
+import { useFetchedContext } from "../../context/FetchedContext";
+import OwnedListingCard from "../layout/OwnedListingCard";
+import { AiOutlinePlus } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import { useDataContext } from "../../context/DataContext";
+import { Fade } from "react-awesome-reveal";
+
+
+export default function ListingPage() {
+	const { myListings } = useFetchedContext();
+    const { handleTabShown } = useDataContext();
+	const [activeTab, setActiveTab] = useState("active");
+
+	const activeListings = myListings?.filter((promotion: any) => promotion?.status == "active");
+	const inActiveListings = myListings?.filter((promotion: any) => promotion?.status == "inactive");
+	const allListings = activeTab == "active" ? activeListings : inActiveListings;
+
+	useEffect(function() {
+		window.scrollTo(0, 0);
+	}, []);
+
+	return (
+		<Fade className="section" duration={500}>
+			<div>
+				<div className="page--tabs" style={{ justifyContent: "center", maxWidth: "100%" }}>
+					<Tab title="Active listings" onClick={() => setActiveTab("active")} active={activeTab == "active"} />
+					<Tab title="Inactive listings" onClick={() => setActiveTab("inactive")} active={activeTab == "inactive"} />
+				</div>
+
+				<div className="">
+					{activeTab == "active" && activeListings?.length > 0 && (
+						<div className="promote--container">
+							<div className="listing--grid">
+								{activeListings?.map((data: any, i: number) => (
+									<OwnedListingCard data={data} key={i} />
+								))}
+							</div>
+
+							<button className="promote--btn absolute--btn" onClick={() => handleTabShown("add-listing")}>
+								<AiOutlinePlus style={{ fontSize: "1.8rem" }} /> Add
+							</button>
+						</div>
+					)}
+
+					{activeTab == "inactive" && inActiveListings?.length > 0 && (
+						<div className="promote--container">
+							<div className="listing--grid">
+								{inActiveListings?.map((data: any, i: number) => (
+									<OwnedListingCard data={data} key={i} />
+								))}
+							</div>
+						</div>
+					)}
+
+					{(allListings?.length == 0) && (
+						<div className="promote--container">
+							<span className="promote--icon">
+								<CiBullhorn />
+							</span>
+
+							<h5 className="heading">No {activeTab} listings</h5>
+
+							<p className="text">Want to boost your views and get more addups? List your profile and start connecting with friends!.</p>
+
+							<button className="promote--btn" onClick={() => handleTabShown("add-listing")}>
+								List your profile <BsSend />
+							</button>
+
+							<div className="form--info">
+								<Link target="_blank" to="https://youtu.be/TPACABQTHvM?si=Sp0zOmmp6cs6aT1S">Click here to see how to promote your product</Link>
+							</div>
+						</div>
+					)}
+				</div>
+			</div>
+		</Fade>
+	);
+}

@@ -1,0 +1,29 @@
+{
+    "short_name": "AddUps",
+    "name": "AddUps",
+    "icons": [
+        {
+            "src": "/addups.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        },
+        {
+            "src": "/favicon.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        },
+        {
+            "src": "/src/assets/logo/addups-bright.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        },
+        {
+            "src": "/vector.png",
+            "type": "image/png"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff"
+}
