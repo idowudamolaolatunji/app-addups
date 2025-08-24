@@ -30,7 +30,7 @@ const customStyles: any = {
 	},
 	rows: {
 		style: {
-			minHeight: "7rem",
+			minHeight: "6rem",
 			cursor: "pointer",
 			fontSize: "1.32rem",
 			fontWeight: 500,
@@ -56,13 +56,14 @@ const columns: any = [
 	{
 		name: "Transaction ID",
 		selector: (row: { reference: string, transactionId?: string }) => <span className="number">{row?.transactionId || row?.reference}</span>,
+		width: "14rem"
 	},
 	{
 		name: "Amount",
 		selector: (row: { amount: number, type: string }) => (
 			<span className={`status status--${row?.type}`}>
-				<p style={{ backgroundColor: "transparent" }}>
-					<span className="number">{row?.type == "deposited" ? "+" : "-"} {formatNumber(row?.amount)}</span> points
+				<p style={{ backgroundColor: "transparent", marginLeft: "-0.68rem" }}>
+					<span className="number">{row?.type == "deposited" ? "+" : "-"}{formatNumber(row?.amount)}</span> points
 				</p>
 			</span>
 		),

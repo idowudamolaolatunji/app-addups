@@ -20,7 +20,7 @@ function PasswordInput({ handleChange, value, title, name } : InputProps ) {
 				{title} <Asterisk />
 			</label>
 			<div className="form--input-box">
-				<input type={showPassword ? "text" : "password"} name={name} id={name} className="form--input" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" value={value} onChange={(e) => handleChange(e)} />
+				<input type={showPassword ? "text" : "password"} name={name} id={name} className="form--input" autoComplete="off" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" value={value} onChange={(e) => handleChange(e)} />
 				<div className="form--input-icon" onClick={() => setShowPassword(!showPassword)}>
 					{showPassword ? <ImEye /> : <ImEyeBlocked />}
 				</div>

@@ -1,6 +1,6 @@
  
 import { useEffect } from "react";
-import HeroTyped from "../../components/elements/HeroTyped";
+import img from "../../assets/png-resources/landing.png"
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 
@@ -19,12 +19,16 @@ export default function Home() {
 
 	return (
 		<div className="hero__section">
+			<div className="">
+				<img src={img} alt="hero image" />
+			</div>
+
 			<div className="hero__text--box">
 				<h1 className="hero--heading">
-					Get More <HeroTyped /> <br /> and Boost Your Online Presence Today
+					Want more <span className="bold-extra">WhatsApp</span> contacts? Join Us
 				</h1>
 
-				<p className="hero--text">Follow or Add new friends, gather up points, and get your social profile listed for others to follow or add you back..</p>
+				<p className="hero--text">Add contacts, gather up points, and get your WhatsApp profile listed for others to add you back</p>
 
 				<div className="hero--actions">
 					<Link to="/signup" className="hero--btn filled">

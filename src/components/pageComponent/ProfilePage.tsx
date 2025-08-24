@@ -55,6 +55,7 @@ export default function ProfilePage() {
 			setResponse({ status: "success", message: "Success" });
 			handleTabShown("explore");
 			localStorage.setItem("scrollPosition", "0");
+			window.location.href = "/"
 		}
 	};
 

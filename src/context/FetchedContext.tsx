@@ -13,6 +13,7 @@ interface FetchedContextType {
     handleFetchListings: () => void;
     ///////////////////////////////////////
     listings: ListingType[] | [];
+    setListings: (l: ListingType[] | []) => void;
     listingLoading: boolean;
     myListings: ListingType[] | [];
     transactions: [] | any;
@@ -118,13 +119,17 @@ export const FetchedProvider: React.FC<FetchedProviderProps> = ({ children }) =>
 
     // CLEAR THE STATE, IF GENDER OR REGION CHANGES
     useEffect(function() {
-        setListings([]);
+        setTimeout(() => {
+            setListings([]);
+        }, 1000);
     }, [region, gender]);
     
     // CALL THE FETCH FUNCTION
     useEffect(function() {
-        handleFetchListings();
-    }, [pageNum, region, gender]);
+        if(token && token != "null") {
+            handleFetchListings();
+        }
+    }, [pageNum, region, gender, token]);
 
     // START FETCHING OTHER DATA
     useEffect(function () {
@@ -142,6 +147,7 @@ export const FetchedProvider: React.FC<FetchedProviderProps> = ({ children }) =>
         ///////////////////////
         ///////////////////////
         listings,
+        setListings,
         listingLoading,
         myListings,
         transactions,

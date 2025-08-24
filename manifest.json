@@ -1,5 +1,5 @@
 {
-    "short_name": "AddUps",
+    "short_name": "AddUps App",
     "name": "AddUps",
     "icons": [
         {
@@ -25,6 +25,10 @@
             "src": "/src/assets/logo/whatsapp-48.png",
             "type": "image/png",
             "sizes": "48x48"
+        },
+        {
+            "src": "/src/assets/png-resources/landing.png",
+            "type": "image/png"
         }
     ],
     "start_url": ".",

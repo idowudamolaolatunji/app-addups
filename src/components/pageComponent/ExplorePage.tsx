@@ -110,18 +110,20 @@ export default function ExplorePage() {
 					</div>
 
                     <div className="listing--grid">
-                        {listings?.map((data: ListingType, i: number) => {
-							if(listings?.length === i) {
+                        {listings?.map((listing: ListingType, i: number) => {
+							if(listings?.length - 3 === i - 1) { // this helps us achieve secToLast, rather than l.length === i + 1
 								return (
 									<span key={i} ref={secondToLastListingRef}>
-										<ListingCard data={data} />
+										<ListingCard listing={listing} />
 									</span>
 								)
 							} else {
-								return <ListingCard data={data} key={i} />
+								return <ListingCard listing={listing} key={i} />
 							}
 						})}
                     </div>
+
+					{listingLoading && <p style={{ textAlign: "center", color: "orange" }}>Loading...</p>}
                 </div>
             </div>
         </Fade>

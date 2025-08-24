@@ -9,14 +9,12 @@ import CustomAlert from "../../../components/elements/CustomAlert";
 import FormButton from "../../../components/forms/FormButton";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocalStorage } from "react-use";
-import { useFetchedContext } from "../../../context/FetchedContext";
 
 const BASE_API_URL = import.meta.env.VITE_API_URL;
 
 export default function index() {
 	const navigate = useNavigate();
 	const { handleChange, user } = useAuthContext();
-	const { handleFetchListings } = useFetchedContext();
 	const [_, setCountryCode] = useLocalStorage("iso2", "");
 
 	const [response, setResponse] = useState({ status: "", message: "" });
@@ -74,7 +72,6 @@ export default function index() {
 
 	useEffect(function () {
         if (user) {
-			handleFetchListings(); // load before get to the page
 			navigate("/home");
         }
     }, [user])

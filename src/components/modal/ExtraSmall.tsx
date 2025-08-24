@@ -5,15 +5,16 @@ import { AiOutlineClose } from 'react-icons/ai';
 
 interface Props {
     children: React.ReactNode;
-    handleClose: () => void;
+    handleClose?: () => void;
     removeCloseAbility?: boolean;
+    shouldScrollBackground?: boolean;
 }
 
-function ExtraSmall({ children, handleClose, removeCloseAbility } : Props) {
+function ExtraSmall({ children, handleClose, removeCloseAbility, shouldScrollBackground=false } : Props) {
     return (
         <React.Fragment>
-            <Overlay handleClose={!removeCloseAbility ? handleClose : () => {}} />
-            <div className="modal mini">
+            <Overlay handleClose={!removeCloseAbility ? (handleClose ?? (() => {})) : (() => {})} />
+            <div className={`modal mini ${shouldScrollBackground ? "" : "non-scroll"}`}>
                 {!removeCloseAbility && (
                     <button className='modal--close' onClick={handleClose}>
                         <AiOutlineClose />
