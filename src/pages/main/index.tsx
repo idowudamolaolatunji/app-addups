@@ -1,6 +1,6 @@
  
 import { useEffect } from "react";
-import img from "../../assets/png-resources/landing.png"
+import img from "../../assets/png-resources/home.png"
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 

@@ -667,7 +667,7 @@ button.form--submit:disabled {
 /* ============================================== */
 
 .image--container {
-    max-width: 70rem;
+    max-width: 50rem;
     height: auto;
 }
 .image--container img {

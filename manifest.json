@@ -1,6 +1,6 @@
 {
-    "short_name": "AddUps App",
-    "name": "AddUps",
+    "short_name": "AddUps",
+    "name": "AddUps App",
     "icons": [
         {
             "src": "/addups.png",
@@ -28,12 +28,13 @@
             "sizes": "48x48"
         },
         {
-            "src": "/src/assets/png-resources/landing.png",
+            "src": "/src/assets/png-resources/home.png",
             "type": "image/png",
-            "sizes": "525x337"
+            "sizes": "1000x667"
         }
     ],
-    "start_url": ".",
+    "id": "/",
+    "start_url": "/",
     "display": "standalone",
     "theme_color": "#ffffff",
     "background_color": "#ffffff"
