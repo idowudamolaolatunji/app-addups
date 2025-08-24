@@ -53,7 +53,7 @@ export default function index() {
 							</picture>
 						</span>
 						<h3 style={{ margin: "1rem 0 0" }}>Hi {capFirst(user?.name)} 😍, Welcome!</h3>
-						<p style={{ textAlign: "center" }}>Welcome to Addups, Claim your 50 poins, start racking more points and get your own WhatsApp profile listed!</p>
+						<p style={{ textAlign: "center" }}>Welcome to Addups, Claim your <span className="bold-extra">50 poins</span>, start racking more points and get your own WhatsApp profile listed!</p>
 						<button className="promote--btn" style={{ gap: "0.48rem" }} disabled={loading} onClick={handleClaimFirstTimePoints}>
 							{loading ? "Claiming..." : (<>Claim your<span className="number">50</span> <GiCrownCoin /> Addups Points</>)}
 						</button>

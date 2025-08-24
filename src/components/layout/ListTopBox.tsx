@@ -18,7 +18,7 @@ export default function ListTopBox() {
 
 	return (
 		<figure className="promote--card">
-			<p>Hi, <strong>{capFirst(name?.split(" ")[0])}!</strong> List your own <span style={{ color: "#dd535d", fontWeight: "500" }}>profile.</span></p>
+			<p>Hi, <strong>{capFirst(name?.split(" ")[0] || "--")}!</strong> List your own <span style={{ color: "#dd535d", fontWeight: "500" }}>profile.</span></p>
 
 			<button onClick={() => handleTabShown("add-listing")}>Get listed <HiOutlineSpeakerphone /></button>
 		</figure>

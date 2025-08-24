@@ -7,7 +7,7 @@ interface Props {
     children: React.ReactNode;
     handleClose?: () => void;
     removeCloseAbility?: boolean;
-    shouldScrollBackground?: boolean;
+    shouldScrollBackground?: boolean; // we used this instead
 }
 
 function ExtraSmall({ children, handleClose, removeCloseAbility, shouldScrollBackground=false } : Props) {

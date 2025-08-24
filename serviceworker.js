@@ -17,6 +17,14 @@ self.addEventListener("install", function(event) {
 
 // LISTEN FOR REQUESTS
 self.addEventListener("fetch", function(event) {
+    const { url } = event.request;
+
+    // Skip caching for any API requests
+    if (url.includes("/api/v1") || url.startsWith("https://addups.getquicka.com")) {
+        // console.log(`Skipping caching for API call: ${url}`);
+        return; // Allow the request to pass through to the network
+    }
+
     event.respondWith(
         caches.match(event.request)
             .then(() => {

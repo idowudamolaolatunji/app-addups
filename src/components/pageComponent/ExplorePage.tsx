@@ -82,13 +82,13 @@ export default function ExplorePage() {
 						})}>
 							<option hidden>{user?.country == "nigeria" ? "State" : "Region"}</option>
 							<option value="all-region">All {user?.country == "nigeria" ? "State" : "Region"}</option>
-							{user.country == "nigeria" && (
+							{user?.country == "nigeria" && (
 								ngStates.map((state: { name: string, value: string }) => (
 									<option value={state.value} key={state.value}>{state.name}</option>
 								))
 							)}
 
-							{user.country == "ghana" && (
+							{user?.country == "ghana" && (
 								ghRegions.map((region: { name: string, value: string }) => (
 									<option value={region.value} key={region.value}>{region.name}</option>
 								))

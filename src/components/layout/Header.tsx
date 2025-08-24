@@ -22,7 +22,7 @@ export default function Header() {
 				</div>
 
 				<div className="header--profile">
-					<p>{capFirst(user?.name?.split(" ")[0])}</p>
+					<p>{capFirst(user?.name?.split(" ")[0]) || "--"}</p>
 				</div>
 			</div>
 		</header>

@@ -52,19 +52,32 @@ export default function OwnedListingCard({ listing }: { listing: ListingType }) 
 		}
 	}, [displayDuration]);
 
-	useEffect(() => {
+	// HELPS US COUNT THE REMAINING TIME FOR THE LISTING TO END
+	useEffect(function() {
 		const targetDate = moment(listing?.dateTimeToExpire);
 
 		const intervalId = setInterval(() => {
 			const now = moment();
 			const diff = moment.duration(targetDate.diff(now));
-			const hours = diff.hours();
+			// const hours = diff.hours();
+			const hours = Math.floor(diff.asHours());
 			const minutes = diff.minutes();
 			const seconds = diff.seconds();
 			if (hours <= 0 && minutes <= 0 && seconds <= 0) {
 				return setCountdown("");
 			}
-			setCountdown(hours > 0 ? `${hours} hrs, ${minutes} mins, ${seconds} secs` : `${minutes} mins, ${seconds} secs`);
+			// setCountdown(hours > 0 ? `${hours} hrs, ${minutes} mins, ${seconds} secs` : `${minutes} mins, ${seconds} secs`);
+
+			let countdownText;
+			if (hours > 0) {
+				countdownText = `${hours} hrs, ${minutes} mins, ${seconds} secs`;
+			} else if (minutes > 0) {
+				countdownText = `${minutes} mins, ${seconds} secs`;
+			} else {
+				countdownText = `${seconds} secs`;
+			}
+
+        	setCountdown(countdownText);
 			if (diff.asSeconds() <= 0) {
 				clearInterval(intervalId);
 			}
@@ -95,7 +108,7 @@ export default function OwnedListingCard({ listing }: { listing: ListingType }) 
 			handleUser(data?.data?.user);
 			setMyListings(data?.data?.listings);
 			setTransactions(data?.data?.transactions);
-			setResponse({ status: "success", message: data?.message });            
+			setResponse({ status: "success", message: `${hoursToAdd} more hours added!` });            
         } catch(err: any) {
             setResponse({ status: "error", message: err.message })
         } finally {
@@ -105,7 +118,11 @@ export default function OwnedListingCard({ listing }: { listing: ListingType }) 
 	
 	return (
 		<React.Fragment>
-			{response?.message && <CustomAlert type={response?.status} message={response?.message} />}
+			{response?.message && 
+				createPortal(
+					<CustomAlert type={response?.status} message={response?.message} />, document.body
+				)
+			}
 
 			{showModal &&
 				createPortal(
@@ -157,7 +174,8 @@ export default function OwnedListingCard({ listing }: { listing: ListingType }) 
 					}
 				</span>
 
-				{(!listing?.extraDisplayDurationInHours && listing?.status == "active") && (
+				{/* {(!listing?.extraDisplayDurationInHours && listing?.status == "active") && ( */}
+				{(listing?.status == "active") && (
 					<button className="card--add" onClick={handleModal}>
 						Add more time <LuClock />
 					</button>	

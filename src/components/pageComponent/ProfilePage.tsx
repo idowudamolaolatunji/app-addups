@@ -160,7 +160,7 @@ export default function ProfilePage() {
 							<span className="promote--icon">
 								<CiUser />
 							</span>
-							<p>{capFirst(user?.name)}</p>
+							<p>{capFirst(user?.name || "--")}</p>
 						</div>
 
 						<div className="profile--elements">

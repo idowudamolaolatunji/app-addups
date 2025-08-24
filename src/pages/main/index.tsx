@@ -19,7 +19,7 @@ export default function Home() {
 
 	return (
 		<div className="hero__section">
-			<div className="">
+			<div className="image--container">
 				<img src={img} alt="hero image" />
 			</div>
 

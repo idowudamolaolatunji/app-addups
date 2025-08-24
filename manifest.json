@@ -5,21 +5,22 @@
         {
             "src": "/addups.png",
             "type": "image/png",
-            "sizes": "512x512"
+            "sizes": "500x500"
         },
         {
             "src": "/favicon.png",
             "type": "image/png",
-            "sizes": "512x512"
+            "sizes": "500x500"
         },
         {
             "src": "/src/assets/logo/addups-bright.png",
             "type": "image/png",
-            "sizes": "512x512"
+            "sizes": "500x500"
         },
         {
             "src": "/vector.png",
-            "type": "image/png"
+            "type": "image/png",
+            "sizes": "318x207"
         },
         {
             "src": "/src/assets/logo/whatsapp-48.png",
@@ -28,7 +29,8 @@
         },
         {
             "src": "/src/assets/png-resources/landing.png",
-            "type": "image/png"
+            "type": "image/png",
+            "sizes": "525x337"
         }
     ],
     "start_url": ".",
