@@ -97,8 +97,8 @@ export default function index() {
 			{response?.message && <CustomAlert type={response?.status} message={response?.message} />}
 
 			<div className="auth__section">
-				<Link to="/">
-					<img src={img} alt="logo image" className="auth--image" />
+				<Link to="/" className="auth--image">
+					<img src={img} alt="logo image" />
 				</Link>
 
 				<h1 className="form--heading">Register</h1>
