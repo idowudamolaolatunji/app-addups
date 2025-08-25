@@ -25,10 +25,15 @@ export default function Home() {
 
 			<div className="hero__text--box">
 				<h1 className="hero--heading">
-					Want more <span className="bold-extra">WhatsApp</span> contacts? Join Us
+					Want more{" "}
+					<picture>
+						<source srcSet="https://fonts.gstatic.com/s/e/notoemoji/latest/2728/512.webp" type="image/webp" />
+						<img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2728/512.gif" alt="✨" width="32" height="32" />
+					</picture>{" "}
+					<span className="bold-extra">WhatsApp</span> contacts? We've got you covered!
 				</h1>
 
-				<p className="hero--text">Add contacts, gather up points, and get your WhatsApp profile listed for others to add you back</p>
+				<p className="hero--text">Add contacts, gather up points, and get your WhatsApp profile listed for others to add you back 💯</p>
 
 				<div className="hero--actions">
 					<Link to="/signup" className="hero--btn filled">

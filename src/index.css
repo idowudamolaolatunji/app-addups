@@ -696,12 +696,12 @@ button.form--submit:disabled {
 .hero--heading {
     font-size: 2.6rem;
     font-weight: 600;
-    line-height: 1.15;
-    margin-bottom: 1.8rem;
+    line-height: 1.2;
+    margin-bottom: 1.6rem;
 }
 .hero--text {
     font-size: 1.6rem;
-    line-height: 1.3;
+    line-height: 1.4;
     margin-bottom: 1.4rem;
     font-weight: 500;
     color: #656565;
@@ -710,7 +710,7 @@ button.form--submit:disabled {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 1.2rem;
     width: 100%;
     max-width: 40rem;
 }
@@ -1320,7 +1320,7 @@ select.page--tab:focus {
 }
 
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 420px) {
     .owned-listing--grid {
         grid-template-columns: repeat(2, 1fr);
     }
