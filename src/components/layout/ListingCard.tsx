@@ -56,7 +56,7 @@ export default function ListingCard({ listing }: { listing: ListingType }) {
 
 			<figure className="listing--card" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), 55%, rgba(0, 0, 0, .8)), url(${listing?.displayImage?.url})` }}>
 				<div className="card--details">
-					<h4 className="title">{truncateString(listing?.displayName)}</h4>
+					<h4 className="title">{truncateString(listing?.displayName, 25)}</h4>
 					<p className="description">
 						{truncateString(listing?.description, truncateCount)}{" "}
 						{listing?.description?.length > 100 ? <span style={{ color: "orange", fontWeight: "600", cursor: "pointer" }} onClick={() => setTruncateCount(truncateCount == 100 ? 10000 : 100)}>{truncateCount <= 100 ? "More" : "Less"}</span> : ""}

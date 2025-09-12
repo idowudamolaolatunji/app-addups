@@ -13,7 +13,7 @@ import type { ListingType } from "../../utils/types";
 
 
 export default function ListingPage() {
-	const { myListings } = useFetchedContext();
+	const { myListings, myListingLoading } = useFetchedContext();
     const { handleTabShown } = useDataContext();
 	const [activeTab, setActiveTab] = useState("active");
 
@@ -58,7 +58,9 @@ export default function ListingPage() {
 						</div>
 					)}
 
-					{(allListings?.length == 0) && (
+					{(myListingLoading && allListings?.length < 1) && <p style={{ textAlign: "center", color: "orange" }}>Loading...</p>}
+
+					{(!myListingLoading && allListings?.length == 0) && (
 						<div className="promote--container">
 							<span className="promote--icon">
 								<CiBullhorn />

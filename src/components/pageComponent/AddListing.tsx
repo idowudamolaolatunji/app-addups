@@ -130,8 +130,8 @@ export default function AddListing() {
 			formData.append('displayName', displayName);
 			formData.append("link", link);
 			formData.append("reference", reference);
-			description && formData.append("description", description);
-			formData.append("targetGender", targetGender);
+			formData.append("description", description || `Hi, add me on WhatsApp and Save my contact as ${displayName}`);
+			formData.append("targetGender", targetGender || "all-gender");
 			formData.append("duration", displayDuration);
 			formData.append("pointAmount", ""+pointAmount);
 			displayImage.file && formData.append("image", displayImage.file);
@@ -180,7 +180,7 @@ export default function AddListing() {
 						<p>Your profile will be listed on the explore page for <span className="bold-extra">{formData?.displayDuration} hours</span>, this will cost you <span className="bold-extra">{paymentValue.pointAmount} Points</span></p>
 
 						<div className="actions">
-							<button onClick={() => setShowModal(false)} className="card--btn outline">Cancel</button>
+							<button onClick={() => setShowModal(false)} className="card--btn outline" disabled={loading}>Cancel</button>
 
 							{user?.pointBalance < paymentValue.pointAmount ? (
 								<PaystackButton

@@ -158,7 +158,7 @@ export default function OwnedListingCard({ listing }: { listing: ListingType }) 
 			}
 
 			<figure className={`owned-listing--card ${listing?.status}`} style={{ borderRadius: ".4rem" }}>
-				<p>{truncateString(listing?.displayName)}</p>
+				<p>{truncateString(listing?.displayName, 25)}</p>
 
 				<img src={listing?.displayImage?.url} alt={listing?.displayName} />
 

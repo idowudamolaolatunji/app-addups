@@ -13,7 +13,7 @@ import { capFirst } from "../../utils/helper";
 import { GiCrownCoin } from "react-icons/gi";
 import CustomAlert from "../../components/elements/CustomAlert";
 
-const pointAmount = 50;
+const pointAmount = 1000;
 const BASE_API_URL = import.meta.env.VITE_API_URL;
 
 export default function index() {
@@ -26,7 +26,7 @@ export default function index() {
 
 	async function handleClaimFirstTimePoints() {
 		setLoading(true);
-		handleUser({ ...user, pointBalance: user?.pointBalance + 15 });
+		handleUser({ ...user, pointBalance: user?.pointBalance + pointAmount });
 
 		const res = await fetch(`${BASE_API_URL}/points/reward/recieve`, {
 			method: 'PATCH', headers,
@@ -53,9 +53,9 @@ export default function index() {
 							</picture>
 						</span>
 						<h3 style={{ margin: "1rem 0 0" }}>Hi {capFirst(user?.name)} 😍, Welcome!</h3>
-						<p style={{ textAlign: "center" }}>Welcome to Addups, Claim your <span className="bold-extra">50 poins</span>, start racking more points and get your own WhatsApp profile listed!</p>
+						<p style={{ textAlign: "center" }}>Welcome to Addups, Claim your <span className="bold-extra">{pointAmount} poins</span>, start racking more points and get your own WhatsApp profile listed!</p>
 						<button className="promote--btn" style={{ gap: "0.48rem" }} disabled={loading} onClick={handleClaimFirstTimePoints}>
-							{loading ? "Claiming..." : (<>Claim your<span className="number">50</span> <GiCrownCoin /> Addups Points</>)}
+							{loading ? "Claiming..." : (<>Claim your<span className="number">{pointAmount}</span> <GiCrownCoin /> Addups Points</>)}
 						</button>
 					</div>
 				</ExtraSmall>

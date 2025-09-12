@@ -15,6 +15,7 @@ interface FetchedContextType {
     listings: ListingType[] | [];
     setListings: (l: ListingType[] | []) => void;
     listingLoading: boolean;
+    myListingLoading: boolean;
     myListings: ListingType[] | [];
     transactions: [] | any;
     setMyListings: (l: ListingType[] | []) => void;
@@ -52,6 +53,7 @@ export const FetchedProvider: React.FC<FetchedProviderProps> = ({ children }) =>
     /////////////////////////////////////////////////////////////////
     const [listings, setListings] = useState<ListingType[] | []>([]);
     const [listingLoading, setListingLoading] = useState(false);
+    const [myListingLoading, setMyListingLoading] = useState(false);
     ////////////////////////////////////////////////////////////////
     const [region, setRegion] = useState("all-region");
 	const [gender, setGender] = useState("all-gender");
@@ -105,6 +107,8 @@ export const FetchedProvider: React.FC<FetchedProviderProps> = ({ children }) =>
     }
 
     async function handleFetchMyListings() {
+        setMyListingLoading(true);
+
         try {
             const res = await fetch(`${BASE_API_URL}/listings/mine/p`, { method: "GET", headers })
             const data = await res.json();
@@ -114,6 +118,8 @@ export const FetchedProvider: React.FC<FetchedProviderProps> = ({ children }) =>
 
         } catch(err: any) {
             setError(err?.message);
+        } finally {
+            setMyListingLoading(false);
         }
     }
 
@@ -150,6 +156,7 @@ export const FetchedProvider: React.FC<FetchedProviderProps> = ({ children }) =>
         setListings,
         listingLoading,
         myListings,
+        myListingLoading,
         transactions,
         setMyListings,
         setTransactions,
