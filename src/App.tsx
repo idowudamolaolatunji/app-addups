@@ -21,6 +21,7 @@ export default function App() {
                 {/* PROTECTED ROUTES */}
                 <Route element={<ProtectedRoute />}>
                     <Route path='/home' element={<MainApp />}></Route>
+                    <Route path='/app' element={<MainApp />}></Route>
                 </Route>
             </Routes>
         </BrowserRouter>

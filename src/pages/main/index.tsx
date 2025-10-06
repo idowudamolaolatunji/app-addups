@@ -13,7 +13,7 @@ export default function Home() {
 		window?.scrollTo(0, 0)
 
 		if (user) {
-			navigate("/home");
+			navigate("/app");
 		}
 	}, [user])
 

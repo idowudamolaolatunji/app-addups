@@ -10,6 +10,7 @@ import { useDataContext } from "../../context/DataContext";
 import { useFetchedContext } from "../../context/FetchedContext";
 import { useWindowScroll } from "react-use";
 import { HiOutlineSpeakerphone } from "react-icons/hi";
+import AdsenceComponent from "../layout/AdsenceComponent";
 
 
 export default function ExplorePage() {
@@ -115,6 +116,7 @@ export default function ExplorePage() {
 								return (
 									<span key={i} ref={secondToLastListingRef}>
 										<ListingCard listing={listing} />
+										<AdsenceComponent />
 									</span>
 								)
 							} else {

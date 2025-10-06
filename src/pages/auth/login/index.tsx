@@ -72,7 +72,7 @@ export default function index() {
 
 	useEffect(function () {
         if (user) {
-			navigate("/home");
+			navigate("/app");
         }
     }, [user])
 
